@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="watch_face_name">Night Digital</string>
+    <!-- The watch face editor's setting for the readings' color. -->
+    <string name="value_color">Readings color</string>
+    <string name="color_sky">Soft sky</string>
+    <string name="color_ice">Ice blue</string>
+    <string name="color_white">White</string>
+    <string name="color_cream">Warm cream</string>
+    <string name="color_gray">Gray</string>
 </resources>

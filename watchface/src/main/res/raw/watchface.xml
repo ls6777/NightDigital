@@ -3,6 +3,15 @@
 <WatchFace width="450" height="450">
     <Metadata key="CLOCK_TYPE" value="DIGITAL" />
     <Metadata key="PREVIEW_TIME" value="08:10:18" />
+    <UserConfigurations>
+        <ColorConfiguration id="valueColor" displayName="@string/value_color" defaultValue="sky">
+            <ColorOption id="sky" displayName="@string/color_sky" colors="#BCD8F0" />
+            <ColorOption id="ice" displayName="@string/color_ice" colors="#D6E7F5" />
+            <ColorOption id="white" displayName="@string/color_white" colors="#FFFFFF" />
+            <ColorOption id="cream" displayName="@string/color_cream" colors="#EDE3D2" />
+            <ColorOption id="gray" displayName="@string/color_gray" colors="#B4B4B4" />
+        </ColorConfiguration>
+    </UserConfigurations>
     <BitmapFonts>
         <BitmapFont name="weather_icons_day">
             <Character name="0" resource="weather_unknown" width="46" height="46" />
@@ -497,7 +506,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="1" y="51" width="110" height="36">
+                                <PartText x="1" y="51" width="110" height="36" tintColor="[CONFIGURATION.valueColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="weather_temperature" size="34">
                                             <Template>%s°<Parameter expression="[WEATHER.TEMPERATURE]" />
@@ -514,7 +523,7 @@
                         <PartImage x="27" y="0" width="46" height="46">
                             <Image resource="weather_clear_day" />
                         </PartImage>
-                        <PartText x="1" y="51" width="110" height="36">
+                        <PartText x="1" y="51" width="110" height="36" tintColor="[CONFIGURATION.valueColor.0]">
                             <Text align="CENTER">
                                 <BitmapFont family="weather_temperature" size="34">
                                     <Template>%s<Parameter expression="&quot;--°&quot;" />
@@ -552,7 +561,7 @@
                 </Compare>
             </Condition>
         </Group>
-        <Group name="heartRate" x="348" y="187" width="103" height="77">
+        <Group name="heartRate" x="346" y="187" width="103" height="77">
             <Variant mode="AMBIENT" target="alpha" value="0" />
             <PartImage x="37" y="1" width="27" height="25">
                 <Image resource="gauge_heart" />
@@ -562,7 +571,7 @@
                     <Expression name="hasHeartRate">[HEART_RATE] &gt; 0</Expression>
                 </Expressions>
                 <Compare expression="hasHeartRate">
-                    <PartText x="0" y="33" width="102" height="43">
+                    <PartText x="0" y="33" width="102" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="hr_digits" size="41">
                                 <Template>%s<Parameter expression="round([HEART_RATE])" />
@@ -572,7 +581,7 @@
                     </PartText>
                 </Compare>
                 <Default>
-                    <PartText x="0" y="33" width="102" height="43">
+                    <PartText x="0" y="33" width="102" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="hr_digits" size="41">
                                 <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -596,7 +605,7 @@
                     <Expression name="day7">[DAY_OF_WEEK] == 7</Expression>
                 </Expressions>
                 <Compare expression="day1">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;SUN&quot;" />
@@ -606,7 +615,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day2">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;MON&quot;" />
@@ -616,7 +625,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day3">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;TUE&quot;" />
@@ -626,7 +635,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day4">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;WED&quot;" />
@@ -636,7 +645,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day5">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;THU&quot;" />
@@ -646,7 +655,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day6">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;FRI&quot;" />
@@ -656,7 +665,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="day7">
-                    <PartText x="1" y="0" width="175" height="29">
+                    <PartText x="1" y="0" width="175" height="29" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>%s<Parameter expression="&quot;SAT&quot;" />
@@ -685,7 +694,7 @@
                     <Expression name="month12">[MONTH] == 12</Expression>
                 </Expressions>
                 <Compare expression="month1">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>JAN %s<Parameter expression="[DAY]" />
@@ -695,7 +704,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month2">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>FEB %s<Parameter expression="[DAY]" />
@@ -705,7 +714,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month3">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>MAR %s<Parameter expression="[DAY]" />
@@ -715,7 +724,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month4">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>APR %s<Parameter expression="[DAY]" />
@@ -725,7 +734,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month5">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>MAY %s<Parameter expression="[DAY]" />
@@ -735,7 +744,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month6">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>JUN %s<Parameter expression="[DAY]" />
@@ -745,7 +754,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month7">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>JUL %s<Parameter expression="[DAY]" />
@@ -755,7 +764,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month8">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>AUG %s<Parameter expression="[DAY]" />
@@ -765,7 +774,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month9">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>SEP %s<Parameter expression="[DAY]" />
@@ -775,7 +784,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month10">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>OCT %s<Parameter expression="[DAY]" />
@@ -785,7 +794,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month11">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>NOV %s<Parameter expression="[DAY]" />
@@ -795,7 +804,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="month12">
-                    <PartText x="0" y="0" width="450" height="450">
+                    <PartText x="0" y="0" width="450" height="450" tintColor="[CONFIGURATION.valueColor.0]">
                         <TextCircular centerX="225" centerY="225" width="410" height="410" startAngle="199.42" endAngle="160.29" direction="COUNTER_CLOCKWISE" align="CENTER">
                             <BitmapFont family="date_line" size="27">
                                 <Template>DEC %s<Parameter expression="[DAY]" />
@@ -871,7 +880,7 @@
                     </PartText>
                 </Compare>
                 <Compare expression="uv_none">
-                    <PartText x="0" y="33" width="102" height="43">
+                    <PartText x="0" y="33" width="102" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                         <Text align="CENTER">
                             <BitmapFont family="heart_rate_digits" size="41">
                                 <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -900,7 +909,7 @@
             <PartImage x="53" y="94" width="23" height="30">
                 <Image resource="gauge_flame" />
             </PartImage>
-            <PartText x="1" y="44" width="130" height="43">
+            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                 <Text align="CENTER">
                     <BitmapFont family="gauge_big0_digits" size="41">
                         <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -953,7 +962,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -963,7 +972,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -982,7 +991,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="50" width="130" height="31">
+                                    <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -992,7 +1001,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="50" width="130" height="31">
+                                    <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1011,7 +1020,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="0" y="53" width="130" height="25">
+                                    <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1021,7 +1030,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="0" y="53" width="130" height="25">
+                                    <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1040,7 +1049,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1050,7 +1059,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1099,7 +1108,7 @@
                     </Expressions>
                     <Compare expression="size0">
                         <Group name="caloriesSize0" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="44" width="130" height="43">
+                            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big0_digits" size="41">
                                         <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1111,7 +1120,7 @@
                     </Compare>
                     <Compare expression="size1">
                         <Group name="caloriesSize1" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="50" width="130" height="31">
+                            <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big1_digits" size="29">
                                         <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1123,7 +1132,7 @@
                     </Compare>
                     <Compare expression="size2">
                         <Group name="caloriesSize2" x="0" y="0" width="130" height="130">
-                            <PartText x="0" y="53" width="130" height="25">
+                            <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big2_digits" size="23">
                                         <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1135,7 +1144,7 @@
                     </Compare>
                     <Default>
                         <Group name="caloriesSizeDefault" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="44" width="130" height="43">
+                            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big0_digits" size="41">
                                         <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1182,7 +1191,7 @@
                     </Expressions>
                     <Compare expression="size0">
                         <Group name="caloriesSize0" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="44" width="130" height="43">
+                            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big0_digits" size="41">
                                         <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1194,7 +1203,7 @@
                     </Compare>
                     <Compare expression="size1">
                         <Group name="caloriesSize1" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="50" width="130" height="31">
+                            <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big1_digits" size="29">
                                         <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1206,7 +1215,7 @@
                     </Compare>
                     <Compare expression="size2">
                         <Group name="caloriesSize2" x="0" y="0" width="130" height="130">
-                            <PartText x="0" y="53" width="130" height="25">
+                            <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big2_digits" size="23">
                                         <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1218,7 +1227,7 @@
                     </Compare>
                     <Default>
                         <Group name="caloriesSizeDefault" x="0" y="0" width="130" height="130">
-                            <PartText x="1" y="44" width="130" height="43">
+                            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Text align="CENTER">
                                     <BitmapFont family="gauge_big0_digits" size="41">
                                         <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1231,7 +1240,7 @@
                 </Condition>
             </Complication>
             <Complication type="EMPTY">
-                <PartText x="1" y="44" width="130" height="43">
+                <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                     <Text align="CENTER">
                         <BitmapFont family="gauge_big0_digits" size="41">
                             <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -1249,10 +1258,10 @@
             <PartImage x="48" y="100" width="35" height="24">
                 <Image resource="gauge_mountain" />
             </PartImage>
-            <PartImage x="59" y="29" width="13" height="12">
+            <PartImage x="59" y="29" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                 <Image resource="unit_elevation" />
             </PartImage>
-            <PartText x="1" y="44" width="130" height="43">
+            <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                 <Text align="CENTER">
                     <BitmapFont family="gauge_big0_digits" size="41">
                         <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -1300,7 +1309,7 @@
                     </Expressions>
                     <Compare expression="size0">
                         <Group name="elevationSize0" x="0" y="0" width="130" height="130">
-                            <PartImage x="59" y="29" width="13" height="12">
+                            <PartImage x="59" y="29" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Image resource="unit_elevation" />
                             </PartImage>
                             <Condition>
@@ -1308,7 +1317,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 2</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2)" />
@@ -1318,7 +1327,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1332,7 +1341,7 @@
                     </Compare>
                     <Compare expression="size1">
                         <Group name="elevationSize1" x="0" y="0" width="130" height="130">
-                            <PartImage x="59" y="35" width="13" height="12">
+                            <PartImage x="59" y="35" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Image resource="unit_elevation" />
                             </PartImage>
                             <Condition>
@@ -1340,7 +1349,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 2</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="50" width="130" height="31">
+                                    <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2)" />
@@ -1350,7 +1359,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="50" width="130" height="31">
+                                    <PartText x="1" y="50" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1364,7 +1373,7 @@
                     </Compare>
                     <Compare expression="size2">
                         <Group name="elevationSize2" x="0" y="0" width="130" height="130">
-                            <PartImage x="59" y="38" width="13" height="12">
+                            <PartImage x="59" y="38" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Image resource="unit_elevation" />
                             </PartImage>
                             <Condition>
@@ -1372,7 +1381,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 2</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="0" y="53" width="130" height="25">
+                                    <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2)" />
@@ -1382,7 +1391,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="0" y="53" width="130" height="25">
+                                    <PartText x="0" y="53" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1396,7 +1405,7 @@
                     </Compare>
                     <Default>
                         <Group name="elevationSizeDefault" x="0" y="0" width="130" height="130">
-                            <PartImage x="59" y="29" width="13" height="12">
+                            <PartImage x="59" y="29" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                                 <Image resource="unit_elevation" />
                             </PartImage>
                             <Condition>
@@ -1404,7 +1413,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 2</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2)" />
@@ -1414,7 +1423,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="44" width="130" height="43">
+                                    <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1429,10 +1438,10 @@
                 </Condition>
             </Complication>
             <Complication type="EMPTY">
-                <PartImage x="59" y="29" width="13" height="12">
+                <PartImage x="59" y="29" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                     <Image resource="unit_elevation" />
                 </PartImage>
-                <PartText x="1" y="44" width="130" height="43">
+                <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                     <Text align="CENTER">
                         <BitmapFont family="gauge_big0_digits" size="41">
                             <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -1450,7 +1459,7 @@
             <PartImage x="51" y="92" width="27" height="32">
                 <Image resource="gauge_steps" />
             </PartImage>
-            <PartText x="1" y="43" width="130" height="43">
+            <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                 <Text align="CENTER">
                     <BitmapFont family="gauge_big0_digits" size="41">
                         <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -1513,7 +1522,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1542,7 +1551,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="49" width="130" height="31">
+                                    <PartText x="1" y="49" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1571,7 +1580,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="0" y="52" width="130" height="25">
+                                    <PartText x="0" y="52" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1600,7 +1609,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.GOAL_PROGRESS_VALUE])" />
@@ -1664,7 +1673,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1693,7 +1702,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="49" width="130" height="31">
+                                    <PartText x="1" y="49" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1722,7 +1731,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="0" y="52" width="130" height="25">
+                                    <PartText x="0" y="52" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1751,7 +1760,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round([COMPLICATION.RANGED_VALUE_VALUE])" />
@@ -1805,7 +1814,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1815,7 +1824,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1834,7 +1843,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="49" width="130" height="31">
+                                    <PartText x="1" y="49" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1844,7 +1853,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="49" width="130" height="31">
+                                    <PartText x="1" y="49" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big1_digits" size="29">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1863,7 +1872,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="0" y="52" width="130" height="25">
+                                    <PartText x="0" y="52" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1873,7 +1882,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="0" y="52" width="130" height="25">
+                                    <PartText x="0" y="52" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big2_digits" size="23">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1892,7 +1901,7 @@
                                     <Expression name="available">textLength([COMPLICATION.TEXT]) &gt; 3</Expression>
                                 </Expressions>
                                 <Compare expression="available">
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="round((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)))" />
@@ -1902,7 +1911,7 @@
                                     </PartText>
                                 </Compare>
                                 <Default>
-                                    <PartText x="1" y="43" width="130" height="43">
+                                    <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                         <Text align="CENTER">
                                             <BitmapFont family="gauge_big0_digits" size="41">
                                                 <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -1917,7 +1926,7 @@
                 </Condition>
             </Complication>
             <Complication type="EMPTY">
-                <PartText x="1" y="43" width="130" height="43">
+                <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                     <Text align="CENTER">
                         <BitmapFont family="gauge_big0_digits" size="41">
                             <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -2028,7 +2037,7 @@
                 </Expressions>
                 <Compare expression="size0">
                     <Group name="batterySize0" x="0" y="0" width="130" height="130">
-                        <PartImage x="59" y="28" width="13" height="12">
+                        <PartImage x="59" y="28" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                             <Image resource="unit_battery" />
                         </PartImage>
                         <Condition>
@@ -2046,7 +2055,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="1" y="43" width="130" height="43">
+                                <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="gauge_big0_digits" size="41">
                                             <Template>%s<Parameter expression="[BATTERY_PERCENT]" />
@@ -2060,7 +2069,7 @@
                 </Compare>
                 <Compare expression="size1">
                     <Group name="batterySize1" x="0" y="0" width="130" height="130">
-                        <PartImage x="59" y="34" width="13" height="12">
+                        <PartImage x="59" y="34" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                             <Image resource="unit_battery" />
                         </PartImage>
                         <Condition>
@@ -2078,7 +2087,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="1" y="49" width="130" height="31">
+                                <PartText x="1" y="49" width="130" height="31" tintColor="[CONFIGURATION.valueColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="gauge_big1_digits" size="29">
                                             <Template>%s<Parameter expression="[BATTERY_PERCENT]" />
@@ -2092,7 +2101,7 @@
                 </Compare>
                 <Compare expression="size2">
                     <Group name="batterySize2" x="0" y="0" width="130" height="130">
-                        <PartImage x="59" y="37" width="13" height="12">
+                        <PartImage x="59" y="37" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                             <Image resource="unit_battery" />
                         </PartImage>
                         <Condition>
@@ -2110,7 +2119,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="0" y="52" width="130" height="25">
+                                <PartText x="0" y="52" width="130" height="25" tintColor="[CONFIGURATION.valueColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="gauge_big2_digits" size="23">
                                             <Template>%s<Parameter expression="[BATTERY_PERCENT]" />
@@ -2124,7 +2133,7 @@
                 </Compare>
                 <Default>
                     <Group name="batterySizeDefault" x="0" y="0" width="130" height="130">
-                        <PartImage x="59" y="28" width="13" height="12">
+                        <PartImage x="59" y="28" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
                             <Image resource="unit_battery" />
                         </PartImage>
                         <Condition>
@@ -2142,7 +2151,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="1" y="43" width="130" height="43">
+                                <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="gauge_big0_digits" size="41">
                                             <Template>%s<Parameter expression="[BATTERY_PERCENT]" />
@@ -2161,7 +2170,7 @@
             <PartImage x="40" y="1" width="25" height="12">
                 <Image resource="battery_small" />
             </PartImage>
-            <PartText x="0" y="18" width="105" height="28">
+            <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
                 <Text align="CENTER">
                     <BitmapFont family="battery_hours_digits" size="26">
                         <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -2206,7 +2215,7 @@
                         <PartImage x="40" y="1" width="25" height="12">
                             <Image resource="battery_small" />
                         </PartImage>
-                        <PartText x="0" y="18" width="105" height="28">
+                        <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
                             <Text align="CENTER">
                                 <BitmapFont family="battery_hours_digits" size="26">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
@@ -2226,7 +2235,7 @@
                 <PartImage x="40" y="1" width="25" height="12">
                     <Image resource="battery_small" />
                 </PartImage>
-                <PartText x="0" y="18" width="105" height="28">
+                <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
                     <Text align="CENTER">
                         <BitmapFont family="battery_hours_digits" size="26">
                             <Template>%s<Parameter expression="&quot;--&quot;" />
@@ -2237,7 +2246,7 @@
             </Complication>
         </ComplicationSlot>
         <DigitalClock x="0" y="191" width="450" height="68">
-            <TimeText format="h:mm" align="CENTER" x="3" y="0" width="447" height="68">
+            <TimeText format="h:mm" align="CENTER" x="3" y="0" width="447" height="68" tintColor="[CONFIGURATION.valueColor.0]">
                 <BitmapFont family="time_digits" size="66" />
             </TimeText>
         </DigitalClock>

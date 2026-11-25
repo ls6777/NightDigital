@@ -56,9 +56,17 @@ GAUGE_GRAY = "#A4A4A4"
 #: The readings' color, for every value and its words: the time, the
 #: gauges' values and units (the battery percentage among them), the
 #: battery hours, temperature, heart rate, UV "--", date and day name.
-#: White, to read easily on the watch; the gauges' tick marks stay
-#: GAUGE_GRAY.
+#: Their images are drawn in this white and tinted on the watch with the
+#: color chosen in the watch face's settings (VALUE_TINT).
 VALUE_COLOR = "#FFFFFF"
+#: The choices for the readings' color in the watch face editor, the
+#: first the default: (option id, its name's string resource, color).
+#: Soft sky is softer than white and the orange's complement.
+VALUE_COLORS = (("sky", "color_sky", "#BCD8F0"), ("ice", "color_ice", "#D6E7F5"),
+                ("white", "color_white", "#FFFFFF"), ("cream", "color_cream", "#EDE3D2"),
+                ("gray", "color_gray", "#B4B4B4"))
+#: The tint that colors the readings: the chosen color (see VALUE_COLORS).
+VALUE_TINT = "[CONFIGURATION.valueColor.0]"
 #: A reached goal's green (DataDial's): the steps once they reach the goal.
 GOAL_COLOR = "#3DDC57"
 
@@ -104,6 +112,16 @@ def ambient_only(parent):
 
 
 # ---------------------------------------------------------------- the scene
+
+
+def user_configurations(face):
+    """The watch face's settings, in the watch face editor: the readings'
+    color (VALUE_COLORS), soft sky by default."""
+    configs = el(face, "UserConfigurations")
+    color = el(configs, "ColorConfiguration", id="valueColor",
+               displayName="@string/value_color", defaultValue=VALUE_COLORS[0][0])
+    for option, name, value in VALUE_COLORS:
+        el(color, "ColorOption", id=option, displayName=f"@string/{name}", colors=value)
 
 
 def bitmap_fonts(face):
@@ -178,19 +196,21 @@ def bitmap_fonts(face):
                    width=w, height=h)
 
 
-def text_part(parent, y, width, height, align="CENTER", x=0, **text):
-    """A PartText at (x, y) in the group, and its Text."""
+def text_part(parent, y, width, height, align="CENTER", x=0, tint=False, **text):
+    """A PartText at (x, y) in the group, and its Text; with `tint`, in the
+    readings' chosen color (VALUE_TINT)."""
     part = el(parent, "PartText", x=round(x), y=round(y), width=round(width),
-              height=math.ceil(height))
+              height=math.ceil(height), **({"tintColor": VALUE_TINT} if tint else {}))
     return el(part, "Text", align=align, **text)
 
 
-def bitmap_text_part(parent, y, width, image_h, align="CENTER", x=0):
+def bitmap_text_part(parent, y, width, image_h, align="CENTER", x=0, tint=False):
     """A text_part for image font text whose images are `image_h` pixels
     tall, their tops at y: a pixel of room above and below, since the
     watch draws the images a little low in the box and clips a box only as
-    tall as they are (the digits' tops came out flat)."""
-    return text_part(parent, round(y) - 1, width, image_h + 2, align=align, x=x)
+    tall as they are (the digits' tops came out flat). `tint` as for
+    text_part."""
+    return text_part(parent, round(y) - 1, width, image_h + 2, align=align, x=x, tint=tint)
 
 
 def template(parent, fmt, *expressions):
@@ -440,7 +460,8 @@ def gauge_reading(parent, spec, size, center, pointer, value, available=None,
         def value_text(at, shown, family=plain):
             """The value's text part under `at`, showing `shown`."""
             text = el(at, "PartText", x=round(trailing / 2), y=round(top_y) - 1, width=size,
-                      height=image_h + 2)
+                      height=image_h + 2,
+                      **({"tintColor": VALUE_TINT} if family == plain else {}))
             t = el(text, "Text", align="CENTER")
             template(el(t, "BitmapFont", family=family, size=image_h), "%s", shown)
 
@@ -449,7 +470,7 @@ def gauge_reading(parent, spec, size, center, pointer, value, available=None,
             uy = cy - spec["unit_top"] if "unit_top" in spec else \
                 top_y - BIG_VALUE["unit_gap"] - uh
             unit = el(under, "PartImage", x=round(cx - uw / 2), y=round(uy), width=uw,
-                      height=uh)
+                      height=uh, tintColor=VALUE_TINT)
             el(unit, "Image", resource=f"unit_{spec['name']}")
         assert goal is None or available is None, "a goal with a fallback isn't drawn"
         assert low_when is None or (goal is None and available is None),             "low_when only on its own"
@@ -592,7 +613,8 @@ def heart_rate(scene, sample=None):
     el(el(shown, "Expressions"), "Expression", name="hasHeartRate").text = f"{hr} > 0"
     for branch, value in ((el(shown, "Compare", expression="hasHeartRate"), f"round({hr})"),
                           (el(shown, "Default"), '"--"')):
-        t = bitmap_text_part(branch, value_top - top, width, dh, x=round(value_left) - left)
+        t = bitmap_text_part(branch, value_top - top, width, dh, x=round(value_left) - left,
+                             tint=True)
         template(el(t, "BitmapFont", family="hr_digits", size=dh), "%s", value)
 
 
@@ -633,7 +655,8 @@ def date_line(scene, sample=None):
     ambient_hide(group)
 
     def day(branch, n):
-        t = bitmap_text_part(branch, day_top - top, right - left, h, x=round(trailing / 2))
+        t = bitmap_text_part(branch, day_top - top, right - left, h, x=round(trailing / 2),
+                             tint=True)
         template(el(t, "BitmapFont", family="date_line", size=h), "%s",
                  f'"{DAY_NAMES[n - 1][:3]}"')
     # [DAY_OF_WEEK] is 1 for Sunday.
@@ -648,7 +671,7 @@ def date_line(scene, sample=None):
     middle = 180 - math.degrees(trailing / 2 / baseline)
 
     def month(branch, n):
-        part = el(branch, "PartText", x=0, y=0, width=SIZE, height=SIZE)
+        part = el(branch, "PartText", x=0, y=0, width=SIZE, height=SIZE, tintColor=VALUE_TINT)
         t = el(part, "TextCircular", centerX=C, centerY=C, width=2 * baseline,
                height=2 * baseline, startAngle=fmt(middle + span / 2),
                endAngle=fmt(middle - span / 2), direction="COUNTER_CLOCKWISE", align="CENTER")
@@ -697,7 +720,7 @@ def day_date(scene, sample=None):
                width=round(width), height=digit_h + 2)
     ambient_hide(group)
     trailing = GAUGE_FONT["tracking"] * DAY_DATE["date"]
-    t = bitmap_text_part(group, 1, width, digit_h, x=round(trailing / 2))
+    t = bitmap_text_part(group, 1, width, digit_h, x=round(trailing / 2), tint=True)
     template(el(t, "BitmapFont", family="date_digits", size=digit_h), "%s", source("[DAY]"))
 
 
@@ -759,7 +782,7 @@ def uv_index(scene, sample=None):
                              width, dh, x=value_x)
         template(el(t, "BitmapFont", family=f"uv_{name}_digits", size=dh), "%s", uv)
     t = bitmap_text_part(el(level, "Compare", expression="uv_none"), value_top - top, width, dh,
-                         x=value_x)
+                         x=value_x, tint=True)
     template(el(t, "BitmapFont", family="heart_rate_digits", size=dh), "%s", '"--"')
     # Weather but no index (the watch reports none at night): 0, as DataDial
     # shows it, in the lowest level's color.
@@ -794,7 +817,7 @@ def weather(scene, sample=None):
              width=round(icon), height=round(icon))
     el(sun, "Image", resource="weather_clear_day")
     t = bitmap_text_part(none, layout["temp_y"], text_w, TEMPERATURE_GLYPHS["0"][1],
-                         x=layout["text_x"])
+                         x=layout["text_x"], tint=True)
     template(el(t, "BitmapFont", family="weather_temperature",
                 size=TEMPERATURE_GLYPHS["0"][1]), "%s", '"--°"')
 
@@ -819,8 +842,9 @@ def weather(scene, sample=None):
     for branch, key in ((el(colored, "Compare", expression="hot"), "hot"),
                         (el(colored, "Compare", expression="cold"), "cold"),
                         (el(colored, "Default"), "")):
+        # The normal temperature in the chosen color; hot and cold keep theirs.
         t = bitmap_text_part(branch, layout["temp_y"], text_w, TEMPERATURE_GLYPHS["0"][1],
-                             x=layout["text_x"])
+                             x=layout["text_x"], tint=key == "")
         template(el(t, "BitmapFont", family=f"weather_temperature{temperature_set(key)}",
                     size=TEMPERATURE_GLYPHS["0"][1]), "%s°", w("TEMPERATURE"))
 
@@ -903,14 +927,16 @@ def digital_clock(scene, time=None):
             clock = el(scene, "DigitalClock", x=0, y=round(y) - 1, width=SIZE, height=h + 2)
             if not ambient:
                 ambient_hide(clock)
+            # The time in the chosen color; the seconds stay orange.
             t = el(clock, "TimeText", format=fmt_, align="CENTER", x=shift, y=0,
-                   width=SIZE - shift, height=h + 2)
+                   width=SIZE - shift, height=h + 2,
+                   **({"tintColor": VALUE_TINT} if name == "time" else {}))
             el(t, "BitmapFont", family=family, size=h)
         else:
             group = el(scene, "Group", name=name, x=0, y=0, width=SIZE, height=SIZE)
             if not ambient:
                 ambient_hide(group)
-            t = bitmap_text_part(group, y, SIZE - shift, h, x=shift)
+            t = bitmap_text_part(group, y, SIZE - shift, h, x=shift, tint=name == "time")
             template(el(t, "BitmapFont", family=family, size=h), "%s", fixed)
 
 
@@ -953,7 +979,8 @@ def battery_hours(scene, sample=None):
         icon = el(parent, "PartImage", x=round(C - iw / 2) - b["x"], y=round(icon_top) - y0,
                   width=iw, height=ih)
         el(icon, "Image", resource="battery_small")
-        t = bitmap_text_part(parent, text_top - y0, width - shift, th, x=shift)
+        t = bitmap_text_part(parent, text_top - y0, width - shift, th, x=shift,
+                             tint=family == "battery_hours_digits")
         template(el(t, "BitmapFont", family=family, size=th), "%s", text)
 
     group = el(scene, "Group", name="batteryHours", **b)
@@ -988,6 +1015,7 @@ def watch_face(test=False):
     # The picker preview's time (the same as the test build).
     h, m, s = TEST_TIME
     el(face, "Metadata", key="PREVIEW_TIME", value=f"{h:02d}:{m:02d}:{s:02d}")
+    user_configurations(face)
     bitmap_fonts(face)
     scene = el(face, "Scene", backgroundColor="#000000")
     weather(scene, sample=TEST_WEATHER if test else None)
@@ -1892,7 +1920,7 @@ DAY_IMAGES = {}
 #: right of the 9 uv_layout's column starts, how far the readout's middle
 #: is from the screen's right edge, the heart's gap above the rate, the
 #: rate's digit height, and the UV index's.
-HEART_RATE = dict(inset=11.0, edge=51.3, heart_gap=8.0, value=40.0, digits=40.0)
+HEART_RATE = dict(inset=11.0, edge=53.3, heart_gap=8.0, value=40.0, digits=40.0)
 HEART_ICON = dict(width=26.0, color=TEMPERATURE_COLORS["hot"])
 #: The UV index readout by the 9, laid out as the heart rate is (see
 #: uv_index): the index, colored by the WHO scale, with DataDial's "UV"
