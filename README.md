@@ -13,9 +13,10 @@ It is built with the [Watch Face Format](https://developer.android.com/training/
 </p>
 
 *The Wear OS 7 emulator. Left: the test build (`./build.sh test`) at its fixed time of
-8:10:18, with its sample readings (72°F and clear, UV 7, 80% battery, 23 hours left, 8,250
-steps, 1,850 calories, 8,250 ft, a heart rate of 72, Friday the 20th of March). Right:
-always-on mode.*
+8:10:18, with its sample readings (72°F and clear, a low of 58° and a high of 79°, UV 7, 80%
+battery, 23 hours left, 8,250 steps, 1,850 calories, 8,250 ft, a heart rate of 72, Friday the
+20th of March), in the default soft sky readings color. Right: always-on mode, the time
+alone.*
 
 ## The face
 
