@@ -11,6 +11,15 @@
             <ColorOption id="cream" displayName="@string/color_cream" colors="#EDE3D2" />
             <ColorOption id="gray" displayName="@string/color_gray" colors="#B4B4B4" />
         </ColorConfiguration>
+        <ColorConfiguration id="accentColor" displayName="@string/accent_color" defaultValue="orange">
+            <ColorOption id="orange" displayName="@string/color_orange" colors="#FF8000" />
+            <ColorOption id="amber" displayName="@string/color_amber" colors="#FFB300" />
+            <ColorOption id="teal" displayName="@string/color_teal" colors="#1FC8B4" />
+            <ColorOption id="blue" displayName="@string/color_blue" colors="#4FA3FF" />
+            <ColorOption id="violet" displayName="@string/color_violet" colors="#A97BFF" />
+            <ColorOption id="pink" displayName="@string/color_pink" colors="#FF5C9A" />
+            <ColorOption id="red" displayName="@string/color_red" colors="#FF453A" />
+        </ColorConfiguration>
     </UserConfigurations>
     <BitmapFonts>
         <BitmapFont name="weather_icons_day">
@@ -460,7 +469,7 @@
                                 <Expression name="isDay">[WEATHER.IS_DAY]</Expression>
                             </Expressions>
                             <Compare expression="isDay">
-                                <PartText x="27" y="0" width="46" height="46">
+                                <PartText x="27" y="0" width="46" height="46" tintColor="[CONFIGURATION.accentColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="weather_icons_day" size="46">
                                             <Template>%s<Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" />
@@ -470,7 +479,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="27" y="0" width="46" height="46">
+                                <PartText x="27" y="0" width="46" height="46" tintColor="[CONFIGURATION.accentColor.0]">
                                     <Text align="CENTER">
                                         <BitmapFont family="weather_icons_night" size="46">
                                             <Template>%s<Parameter expression="[WEATHER.CONDITION] &lt;= 15 ? [WEATHER.CONDITION] : 0" />
@@ -520,7 +529,7 @@
                 </Compare>
                 <Default>
                     <Group name="weatherNone" x="0" y="0" width="111" height="84">
-                        <PartImage x="27" y="0" width="46" height="46">
+                        <PartImage x="27" y="0" width="46" height="46" tintColor="[CONFIGURATION.accentColor.0]">
                             <Image resource="weather_clear_day" />
                         </PartImage>
                         <PartText x="1" y="51" width="110" height="36" tintColor="[CONFIGURATION.valueColor.0]">
@@ -817,7 +826,7 @@
         </Group>
         <Group name="uvIndex" x="-7" y="187" width="103" height="77">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <PartImage x="33" y="1" width="34" height="25">
+            <PartImage x="33" y="1" width="34" height="25" tintColor="[CONFIGURATION.accentColor.0]">
                 <Image resource="gauge_uv" />
             </PartImage>
             <Condition>
@@ -906,7 +915,7 @@
             <PartImage x="0" y="0" width="130" height="130">
                 <Image resource="calories_dial" />
             </PartImage>
-            <PartImage x="53" y="94" width="23" height="30">
+            <PartImage x="53" y="94" width="23" height="30" tintColor="[CONFIGURATION.accentColor.0]">
                 <Image resource="gauge_flame" />
             </PartImage>
             <PartText x="1" y="44" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
@@ -933,7 +942,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="65.02" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)) - 0) / 3000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -946,7 +955,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)) - 0) / 3000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="53" y="94" width="23" height="30">
+                <PartImage x="53" y="94" width="23" height="30" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_flame" />
                 </PartImage>
                 <Condition>
@@ -1084,7 +1093,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="65.02" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(([COMPLICATION.RANGED_VALUE_VALUE] - 0) / 3000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1097,7 +1106,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(([COMPLICATION.RANGED_VALUE_VALUE] - 0) / 3000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="53" y="94" width="23" height="30">
+                <PartImage x="53" y="94" width="23" height="30" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_flame" />
                 </PartImage>
                 <Condition>
@@ -1167,7 +1176,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="65.02" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / 3000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1180,7 +1189,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / 3000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="53" y="94" width="23" height="30">
+                <PartImage x="53" y="94" width="23" height="30" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_flame" />
                 </PartImage>
                 <Condition>
@@ -1255,7 +1264,7 @@
             <PartImage x="0" y="0" width="130" height="130">
                 <Image resource="elevation_dial" />
             </PartImage>
-            <PartImage x="48" y="100" width="35" height="24">
+            <PartImage x="48" y="100" width="35" height="24" tintColor="[CONFIGURATION.accentColor.0]">
                 <Image resource="gauge_mountain" />
             </PartImage>
             <PartImage x="59" y="29" width="13" height="12" tintColor="[CONFIGURATION.valueColor.0]">
@@ -1285,7 +1294,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="65.02" centerY="65.02" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 2 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2), -99999, 999999) : 0) - 0) / 10000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1298,7 +1307,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 2 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 2), -99999, 999999) : 0) - 0) / 10000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="48" y="100" width="35" height="24">
+                <PartImage x="48" y="100" width="35" height="24" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_mountain" />
                 </PartImage>
                 <Condition>
@@ -1456,7 +1465,7 @@
             <PartImage x="0" y="0" width="130" height="130">
                 <Image resource="steps_dial" />
             </PartImage>
-            <PartImage x="51" y="92" width="27" height="32">
+            <PartImage x="51" y="92" width="27" height="32" tintColor="[CONFIGURATION.accentColor.0]">
                 <Image resource="gauge_steps" />
             </PartImage>
             <PartText x="1" y="43" width="130" height="43" tintColor="[CONFIGURATION.valueColor.0]">
@@ -1483,7 +1492,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="64.98" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / 10000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1496,7 +1505,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / 10000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="51" y="92" width="27" height="32">
+                <PartImage x="51" y="92" width="27" height="32" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_steps" />
                 </PartImage>
                 <Condition>
@@ -1634,7 +1643,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="64.98" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(([COMPLICATION.RANGED_VALUE_VALUE] - 0) / 10000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1647,7 +1656,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(([COMPLICATION.RANGED_VALUE_VALUE] - 0) / 10000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="51" y="92" width="27" height="32">
+                <PartImage x="51" y="92" width="27" height="32" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_steps" />
                 </PartImage>
                 <Condition>
@@ -1785,7 +1794,7 @@
                 </PartImage>
                 <PartDraw x="0" y="0" width="130" height="130">
                     <Arc centerX="64.98" centerY="64.98" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                        <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                        <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                         <Transform target="endAngle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)) - 0) / 10000, 0, 1) * 288" />
                     </Arc>
                 </PartDraw>
@@ -1798,7 +1807,7 @@
                     </Ellipse>
                     <Transform target="angle" value="-144 + clamp(((textLength([COMPLICATION.TEXT]) &gt; 4 ? clamp(subText([COMPLICATION.TEXT], 0, textLength([COMPLICATION.TEXT]) - 4), 0, 999999) * 1000 + clamp(subText([COMPLICATION.TEXT], textLength([COMPLICATION.TEXT]) - 3, textLength([COMPLICATION.TEXT])), 0, 999999) : clamp([COMPLICATION.TEXT], 0, 999999)) - 0) / 10000, 0, 1) * 288" />
                 </PartDraw>
-                <PartImage x="51" y="92" width="27" height="32">
+                <PartImage x="51" y="92" width="27" height="32" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="gauge_steps" />
                 </PartImage>
                 <Condition>
@@ -1957,7 +1966,7 @@
                 <Compare expression="bar1">
                     <PartDraw x="0" y="0" width="130" height="130">
                         <Arc centerX="65.02" centerY="64.98" width="116.4" height="116.4" startAngle="-144" endAngle="-144" direction="CLOCKWISE">
-                            <Stroke color="#FF8000" thickness="9" cap="ROUND" />
+                            <Stroke color="[CONFIGURATION.accentColor.0]" thickness="9" cap="ROUND" />
                             <Transform target="endAngle" value="-144 + clamp(([BATTERY_PERCENT] - 0) / 100, 0, 1) * 288" />
                         </Arc>
                     </PartDraw>
@@ -2002,27 +2011,27 @@
                             <Expression name="lit2">[BATTERY_PERCENT] &gt; 20 &amp;&amp; [BATTERY_PERCENT] &lt;= 40</Expression>
                         </Expressions>
                         <Compare expression="lit5">
-                            <PartImage x="43" y="104" width="44" height="20">
+                            <PartImage x="43" y="104" width="44" height="20" tintColor="[CONFIGURATION.accentColor.0]">
                                 <Image resource="battery_5" />
                             </PartImage>
                         </Compare>
                         <Compare expression="lit4">
-                            <PartImage x="43" y="104" width="44" height="20">
+                            <PartImage x="43" y="104" width="44" height="20" tintColor="[CONFIGURATION.accentColor.0]">
                                 <Image resource="battery_4" />
                             </PartImage>
                         </Compare>
                         <Compare expression="lit3">
-                            <PartImage x="43" y="104" width="44" height="20">
+                            <PartImage x="43" y="104" width="44" height="20" tintColor="[CONFIGURATION.accentColor.0]">
                                 <Image resource="battery_3" />
                             </PartImage>
                         </Compare>
                         <Compare expression="lit2">
-                            <PartImage x="43" y="104" width="44" height="20">
+                            <PartImage x="43" y="104" width="44" height="20" tintColor="[CONFIGURATION.accentColor.0]">
                                 <Image resource="battery_2" />
                             </PartImage>
                         </Compare>
                         <Default>
-                            <PartImage x="43" y="104" width="44" height="20">
+                            <PartImage x="43" y="104" width="44" height="20" tintColor="[CONFIGURATION.accentColor.0]">
                                 <Image resource="battery_1" />
                             </PartImage>
                         </Default>
@@ -2167,7 +2176,7 @@
         </Group>
         <Group name="batteryHours" x="172" y="126" width="105" height="47">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <PartImage x="40" y="1" width="25" height="12">
+            <PartImage x="40" y="1" width="25" height="12" tintColor="[CONFIGURATION.accentColor.0]">
                 <Image resource="battery_small" />
             </PartImage>
             <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
@@ -2194,7 +2203,7 @@
                                 <Fill color="#000000" />
                             </Rectangle>
                         </PartDraw>
-                        <PartImage x="40" y="1" width="25" height="12">
+                        <PartImage x="40" y="1" width="25" height="12" tintColor="[CONFIGURATION.accentColor.0]">
                             <Image resource="battery_small" />
                         </PartImage>
                         <PartText x="0" y="18" width="105" height="28">
@@ -2212,7 +2221,7 @@
                                 <Fill color="#000000" />
                             </Rectangle>
                         </PartDraw>
-                        <PartImage x="40" y="1" width="25" height="12">
+                        <PartImage x="40" y="1" width="25" height="12" tintColor="[CONFIGURATION.accentColor.0]">
                             <Image resource="battery_small" />
                         </PartImage>
                         <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
@@ -2232,7 +2241,7 @@
                         <Fill color="#000000" />
                     </Rectangle>
                 </PartDraw>
-                <PartImage x="40" y="1" width="25" height="12">
+                <PartImage x="40" y="1" width="25" height="12" tintColor="[CONFIGURATION.accentColor.0]">
                     <Image resource="battery_small" />
                 </PartImage>
                 <PartText x="0" y="18" width="105" height="28" tintColor="[CONFIGURATION.valueColor.0]">
@@ -2252,7 +2261,7 @@
         </DigitalClock>
         <DigitalClock x="0" y="264" width="450" height="42">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <TimeText format="ss" align="CENTER" x="2" y="0" width="448" height="42">
+            <TimeText format="ss" align="CENTER" x="2" y="0" width="448" height="42" tintColor="[CONFIGURATION.accentColor.0]">
                 <BitmapFont family="seconds_digits" size="40" />
             </TimeText>
         </DigitalClock>

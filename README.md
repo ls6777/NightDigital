@@ -20,8 +20,16 @@ alone.*
 
 ## The face
 
-- **Time:** large and white in the middle, hours and minutes in 12- or 24-hour format as
-  the watch is set, with the seconds in orange below them.
+- **Time:** large in the middle, hours and minutes in 12- or 24-hour format as the watch is
+  set, with the seconds below them.
+- **Colors:** two settings in the watch face editor (long-press the face, tap the pencil):
+  - **Readings color:** the time, every value and its units, and the date: soft sky (the
+    default), ice blue, white, warm cream or gray.
+  - **Icons and gauges color:** the weather, gauge, UV and battery icons, the gauges' bars
+    and the seconds: orange (the default), amber, teal, blue, violet, pink or red.
+
+  A hot or cold temperature, the low-battery red, the red heart and the UV index's level
+  colors keep their own colors. Below, "orange" means the icons and gauges color.
 - **Readings:** every value is in Google Sans Flex, bold and rounded (the style of the
   Pixel Watch's Active face), and shows "--" without data. The temperature, heart rate,
   UV index and battery hours are centered exactly on their icons.

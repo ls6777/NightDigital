@@ -67,6 +67,20 @@ VALUE_COLORS = (("sky", "color_sky", "#BCD8F0"), ("ice", "color_ice", "#D6E7F5")
                 ("gray", "color_gray", "#B4B4B4"))
 #: The tint that colors the readings: the chosen color (see VALUE_COLORS).
 VALUE_TINT = "[CONFIGURATION.valueColor.0]"
+#: The icons' and gauge fills' color, chosen in the watch face's settings:
+#: the weather, gauge, UV and battery icons (drawn in ICON_BASE and tinted)
+#: the gauges' bars, and the seconds. The red low battery and the red
+#: heart keep their own colors. The choices, the first the default:
+#: (option id, its name's string resource, color).
+ACCENT_COLORS = (("orange", "color_orange", ORANGE), ("amber", "color_amber", "#FFB300"),
+                 ("teal", "color_teal", "#1FC8B4"), ("blue", "color_blue", "#4FA3FF"),
+                 ("violet", "color_violet", "#A97BFF"), ("pink", "color_pink", "#FF5C9A"),
+                 ("red", "color_red", "#FF453A"))
+#: The tint for the icons and the bars' color: the chosen color.
+ACCENT_TINT = "[CONFIGURATION.accentColor.0]"
+#: The color the tinted icons are drawn in: white, which the tint turns
+#: into the chosen color.
+ICON_BASE = "#FFFFFF"
 #: A reached goal's green (DataDial's): the steps once they reach the goal.
 GOAL_COLOR = "#3DDC57"
 
@@ -116,12 +130,17 @@ def ambient_only(parent):
 
 def user_configurations(face):
     """The watch face's settings, in the watch face editor: the readings'
-    color (VALUE_COLORS), soft sky by default."""
+    color (VALUE_COLORS), soft sky by default, and the icons' and gauge
+    fills' color (ACCENT_COLORS), orange by default."""
     configs = el(face, "UserConfigurations")
     color = el(configs, "ColorConfiguration", id="valueColor",
                displayName="@string/value_color", defaultValue=VALUE_COLORS[0][0])
     for option, name, value in VALUE_COLORS:
         el(color, "ColorOption", id=option, displayName=f"@string/{name}", colors=value)
+    accent = el(configs, "ColorConfiguration", id="accentColor",
+                displayName="@string/accent_color", defaultValue=ACCENT_COLORS[0][0])
+    for option, name, value in ACCENT_COLORS:
+        el(accent, "ColorOption", id=option, displayName=f"@string/{name}", colors=value)
 
 
 def bitmap_fonts(face):
@@ -197,10 +216,12 @@ def bitmap_fonts(face):
 
 
 def text_part(parent, y, width, height, align="CENTER", x=0, tint=False, **text):
-    """A PartText at (x, y) in the group, and its Text; with `tint`, in the
-    readings' chosen color (VALUE_TINT)."""
+    """A PartText at (x, y) in the group, and its Text; with `tint`, tinted
+    the readings' chosen color (VALUE_TINT), or `tint` itself if it is a
+    color."""
+    color = tint if isinstance(tint, str) else VALUE_TINT
     part = el(parent, "PartText", x=round(x), y=round(y), width=round(width),
-              height=math.ceil(height), **({"tintColor": VALUE_TINT} if tint else {}))
+              height=math.ceil(height), **({"tintColor": color} if tint else {}))
     return el(part, "Text", align=align, **text)
 
 
@@ -272,7 +293,9 @@ def battery_icon(parent, level, cx, top):
             el(exprs, "Expression", name=f"lit{k}").text = expression
             images.append((el(lit, "Compare", expression=f"lit{k}"), k))
         for b, k in images + [(el(lit, "Default"), lowest)]:
-            part = el(b, "PartImage", x=round(cx - iw / 2), y=round(top), width=iw, height=ih)
+            # The normal battery in the chosen color; the low one stays red.
+            part = el(b, "PartImage", x=round(cx - iw / 2), y=round(top), width=iw, height=ih,
+                      **({} if suffix else {"tintColor": ACCENT_TINT}))
             el(part, "Image", resource=f"battery{suffix}_{k}")
 
 
@@ -429,7 +452,8 @@ def gauge_face(parent, spec, size, center, cover=False, bar=None):
     elif "icon" in spec:
         iw, ih = GAUGE_IMAGES[spec["icon"]]
         icon = el(parent, "PartImage", x=round(cx - iw / 2),
-                  y=round(gauge_value_layout(spec, cy)[5]), width=iw, height=ih)
+                  y=round(gauge_value_layout(spec, cy)[5]), width=iw, height=ih,
+                  tintColor=ACCENT_TINT)
         el(icon, "Image", resource=spec["icon"])
 
 
@@ -763,7 +787,7 @@ def uv_index(scene, sample=None):
                height=math.ceil(value_top + dh + 2) - top)
     ambient_hide(group)
     icon = el(group, "PartImage", x=round(icon_left) - x0, y=round(icon_top) - top, width=iw,
-              height=ih)
+              height=ih, tintColor=ACCENT_TINT)
     el(icon, "Image", resource="gauge_uv")
     value_x = round(value_left) - x0
     uv, available = f"round({w('UV_INDEX')})", w("IS_AVAILABLE")
@@ -814,7 +838,7 @@ def weather(scene, sample=None):
     none = el(el(shown, "Default"), "Group", name="weatherNone", x=0, y=0,
               width=round(width), height=math.ceil(height))
     sun = el(none, "PartImage", x=round(layout["icon_x"]), y=round(layout["icon_y"]),
-             width=round(icon), height=round(icon))
+             width=round(icon), height=round(icon), tintColor=ACCENT_TINT)
     el(sun, "Image", resource="weather_clear_day")
     t = bitmap_text_part(none, layout["temp_y"], text_w, TEMPERATURE_GLYPHS["0"][1],
                          x=layout["text_x"], tint=True)
@@ -826,7 +850,8 @@ def weather(scene, sample=None):
     el(el(day, "Expressions"), "Expression", name="isDay").text = w("IS_DAY")
     for branch, family in ((el(day, "Compare", expression="isDay"), "weather_icons_day"),
                            (el(day, "Default"), "weather_icons_night")):
-        t = text_part(branch, layout["icon_y"], icon, icon, x=layout["icon_x"])
+        t = text_part(branch, layout["icon_y"], icon, icon, x=layout["icon_x"],
+                      tint=ACCENT_TINT)
         template(el(t, "BitmapFont", family=family, size=icon), "%s",
                  f"{w('CONDITION')} <= 15 ? {w('CONDITION')} : 0")
 
@@ -927,16 +952,17 @@ def digital_clock(scene, time=None):
             clock = el(scene, "DigitalClock", x=0, y=round(y) - 1, width=SIZE, height=h + 2)
             if not ambient:
                 ambient_hide(clock)
-            # The time in the chosen color; the seconds stay orange.
+            # The time in the readings' color, the seconds in the accent's.
             t = el(clock, "TimeText", format=fmt_, align="CENTER", x=shift, y=0,
                    width=SIZE - shift, height=h + 2,
-                   **({"tintColor": VALUE_TINT} if name == "time" else {}))
+                   tintColor=VALUE_TINT if name == "time" else ACCENT_TINT)
             el(t, "BitmapFont", family=family, size=h)
         else:
             group = el(scene, "Group", name=name, x=0, y=0, width=SIZE, height=SIZE)
             if not ambient:
                 ambient_hide(group)
-            t = bitmap_text_part(group, y, SIZE - shift, h, x=shift, tint=name == "time")
+            t = bitmap_text_part(group, y, SIZE - shift, h, x=shift,
+                                 tint=True if name == "time" else ACCENT_TINT)
             template(el(t, "BitmapFont", family=family, size=h), "%s", fixed)
 
 
@@ -977,7 +1003,7 @@ def battery_hours(scene, sample=None):
             el(el(draw, "Rectangle", x=0, y=0, width=dash["width"], height=dash["height"]),
                "Fill", color="#000000")
         icon = el(parent, "PartImage", x=round(C - iw / 2) - b["x"], y=round(icon_top) - y0,
-                  width=iw, height=ih)
+                  width=iw, height=ih, tintColor=ACCENT_TINT)
         el(icon, "Image", resource="battery_small")
         t = bitmap_text_part(parent, text_top - y0, width - shift, th, x=shift,
                              tint=family == "battery_hours_digits")
@@ -1418,7 +1444,7 @@ def render_weather_icons():
     for name, paint in weather_icons().items():
         icon = Icon()
         paint(icon)
-        img = Image.new("RGBA", icon.mask.size, rgb(ORANGE))
+        img = Image.new("RGBA", icon.mask.size, rgb(ICON_BASE))
         img.putalpha(icon.mask)
         size = WEATHER_ICON["size"]
         master = img.resize((round(size * MASTER_SCALE),) * 2, Image.LANCZOS)
@@ -1570,7 +1596,7 @@ def render_battery_icon(filled, low=False, scale=1.0, name=None):
     w, h = math.ceil(bw + nw + 2 * margin), math.ceil(bh + 2 * margin)
     img = Image.new("RGBA", (w * k, h * k), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    color = rgb(BATTERY_LOW["color"] if low else ORANGE)
+    color = rgb(BATTERY_LOW["color"] if low else ICON_BASE)
     name = name or f"battery{'_low' if low else ''}_{filled}"
     x0, y0 = (w - bw - nw) / 2, (h - bh) / 2
     draw.rounded_rectangle([x0 * k, y0 * k, (x0 + bw) * k, (y0 + bh) * k],
@@ -1648,7 +1674,7 @@ def render_battery():
 #:   ring's radius: its inner radius and length), from the scale's low end
 #:   to its value, its ends round: its width, and its colors by how far
 #:   along the scale it is (below this fraction, color), the last for the
-#:   rest: orange all the way.
+#:   rest: the chosen accent color all the way (ACCENT_TINT).
 #: - track: the color of the ring under the bar, the whole scale, as wide
 #:   as the bar with round ends (the Pixel Watch Active face's rings).
 #: - dot: the marker at the bar's end: a disc (its radius and color) on a
@@ -1668,7 +1694,7 @@ GAUGE = dict(
     value=dict(height=19.0, gap=2.0, weight=None, unit=0.55),
     unit=7.0,
     redline=dict(width=2.0, color="#FF3B30"),
-    bar=dict(width=9.0, colors=((None, ORANGE),)),
+    bar=dict(width=9.0, colors=((None, ACCENT_TINT),)),
     track="#3A3A3A",
     dot=dict(radius=4.0, edge=1.6, color="#FFFFFF"),
 )
@@ -1844,7 +1870,7 @@ STEPS_GAUGE = dict(
 BATTERY_GAUGE = dict(
     name="battery", angle=45.0, scale=(0, 100), arc=288.0,
     ticks=list(range(0, 101, 5)), labels=[], big=True, unit_label="%",
-    bar_colors=((BATTERY_LOW["limit"] / 100, BATTERY_LOW["color"]), (None, ORANGE)),
+    bar_colors=((BATTERY_LOW["limit"] / 100, BATTERY_LOW["color"]), (None, ACCENT_TINT)),
     pointer="clamp([BATTERY_PERCENT], 0, 100)", number="[BATTERY_PERCENT]",
     value="[BATTERY_PERCENT]", low=f"[BATTERY_PERCENT] < {BATTERY_LOW['limit']}",
     icon="battery",
@@ -1873,10 +1899,11 @@ DATE_LINE_GLYPHS = {}
 
 #: The digital time in the middle of the face, between the UV index and
 #: the heart rate: hours and minutes ("h:mm", 12 or 24 hour as the watch is
-#: set) in white, centered on the face, and the seconds centered under
-#: them in orange, hidden in always-on mode. The time's capital height, the
-#: seconds', and the gap between the two, in watch face units.
-CLOCK = dict(height=64.0, seconds=38.0, seconds_gap=7.0, seconds_color=ORANGE)
+#: set) in the readings' color, centered on the face, and the seconds
+#: centered under them in the accent color, hidden in always-on mode. The
+#: time's capital height, the seconds', the gap between the two, in watch
+#: face units, and the color the seconds are drawn in to be tinted.
+CLOCK = dict(height=64.0, seconds=38.0, seconds_gap=7.0, seconds_color=ICON_BASE)
 #: The time's characters and the seconds', their image names, and each
 #: one's image size (set by render_clock_glyphs).
 TIME_CHARS = {**{str(n): str(n) for n in range(10)}, ":": "colon"}
@@ -2321,7 +2348,7 @@ def render_svg_icon(name):
             shape = (ImageChops.difference(shape, layer) if rule == "evenodd"
                      else ImageChops.lighter(shape, layer))
         mask = ImageChops.lighter(mask, shape)
-    img = Image.new("RGBA", mask.size, rgb(ORANGE))
+    img = Image.new("RGBA", mask.size, rgb(ICON_BASE))
     img.putalpha(mask)
     master = img.resize((w * MASTER_SCALE, h * MASTER_SCALE), Image.LANCZOS)
     master.save(MASTERS / f"{name}.png")
